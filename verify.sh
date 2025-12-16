@@ -29,15 +29,32 @@ check_file() {
 
 # Function to check JSON validity
 check_json() {
-    if python3 -m json.tool "$1" > /dev/null 2>&1; then
-        echo -e "${GREEN}✓${NC} $1 is valid JSON"
-        ((PASSED++))
-        return 0
+    # Try python3 first, fall back to jq or node if available
+    if command -v python3 &> /dev/null; then
+        if python3 -m json.tool "$1" > /dev/null 2>&1; then
+            echo -e "${GREEN}✓${NC} $1 is valid JSON"
+            ((PASSED++))
+            return 0
+        fi
+    elif command -v jq &> /dev/null; then
+        if jq empty "$1" > /dev/null 2>&1; then
+            echo -e "${GREEN}✓${NC} $1 is valid JSON"
+            ((PASSED++))
+            return 0
+        fi
+    elif command -v node &> /dev/null; then
+        if node -e "JSON.parse(require('fs').readFileSync('$1', 'utf8'))" > /dev/null 2>&1; then
+            echo -e "${GREEN}✓${NC} $1 is valid JSON"
+            ((PASSED++))
+            return 0
+        fi
     else
-        echo -e "${RED}✗${NC} $1 has invalid JSON syntax"
-        ((FAILED++))
-        return 1
+        echo -e "${YELLOW}⚠${NC} $1 - Cannot validate JSON (no python3/jq/node found)"
+        return 0
     fi
+    echo -e "${RED}✗${NC} $1 has invalid JSON syntax"
+    ((FAILED++))
+    return 1
 }
 
 # Function to check PHP syntax

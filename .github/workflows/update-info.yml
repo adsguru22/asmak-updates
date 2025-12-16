@@ -23,7 +23,12 @@ jobs:
         id: version
         run: |
           # Get the tag name from the release (e.g., v1.2.0)
-          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          # For release events, use the release tag; for manual triggers, use GITHUB_REF
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG_NAME="${{ github.event.release.tag_name }}"
+          else
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+          fi
           # Remove 'v' prefix if present
           VERSION="${TAG_NAME#v}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
