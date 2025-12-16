@@ -1,0 +1,94 @@
+name: Update Plugin Info on Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Extract version from release tag
+        id: version
+        run: |
+          # Get the tag name from the release (e.g., v1.2.0)
+          # For release events, use the release tag; for manual triggers, use GITHUB_REF
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG_NAME="${{ github.event.release.tag_name }}"
+          else
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+          fi
+          # Remove 'v' prefix if present
+          VERSION="${TAG_NAME#v}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Update info.json
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TAG="${{ steps.version.outputs.tag }}"
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S")
+
+          # Update version, download URL, and last_updated in info.json
+          cat info.json | \
+            jq --arg version "$VERSION" \
+               --arg download_url "https://github.com/adsguru22/asmak-updates/releases/download/$TAG/asmak-command-center.zip" \
+               --arg last_updated "$TIMESTAMP" \
+               '.version = $version | .download_url = $download_url | .last_updated = $last_updated' \
+            > info.json.tmp
+
+          mv info.json.tmp info.json
+
+          echo "Updated info.json:"
+          cat info.json | jq '.'
+
+      - name: Update index.html version badge
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TAG="${{ steps.version.outputs.tag }}"
+
+          # Update version badge in index.html
+          sed -i "s/<div class=\"version-badge\">Version [^<]*<\/div>/<div class=\"version-badge\">Version $VERSION<\/div>/g" index.html
+
+          # Update download link in index.html
+          sed -i "s|https://github.com/adsguru22/asmak-updates/releases/download/v[0-9.]*|https://github.com/adsguru22/asmak-updates/releases/download/$TAG|g" index.html
+
+          echo "Updated index.html with version $VERSION"
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add info.json index.html
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update plugin info to version ${{ steps.version.outputs.version }}"
+            git push
+            echo "Changes committed and pushed"
+          fi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          keep_files: false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy plugin info for version ${{ steps.version.outputs.version }}'
