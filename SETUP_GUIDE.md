@@ -1,4 +1,4 @@
-# ASMAK Command Center - GitHub Pages Update System
+# adsguru Command Center - GitHub Pages Update System
 
 ## 📚 Dokumentasi Lengkap
 
@@ -78,11 +78,11 @@ Edit file plugin utama Anda (misalnya `asmak-command-center.php`):
 ```php
 <?php
 /**
- * Plugin Name: ASMAK Command Center
+ * Plugin Name: adsguru Command Center
  * Plugin URI: https://github.com/adsguru22/asmak-updates
  * Description: Command Center untuk integrasi berbagai API
  * Version: 1.2.0
- * Author: ASMAK Team
+ * Author: adsguru Team
  * Author URI: https://github.com/adsguru22
  * Requires at least: 5.0
  * Requires PHP: 7.4
@@ -98,7 +98,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/updater.php';
 
 // Initialize auto-updater (admin only)
 if (is_admin()) {
-    $updater = new ASMAK_Plugin_Updater(__FILE__);
+    $updater = new adsguru_Plugin_Updater(__FILE__);
     $updater->set_update_url('https://adsguru22.github.io/asmak-updates/info.json');
     $updater->initialize();
 }
