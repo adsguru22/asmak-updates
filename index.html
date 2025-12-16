@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASMAK Command Center - WordPress Plugin Update Server</title>
+    <meta name="description" content="Free auto-update system for ASMAK Command Center WordPress plugin using GitHub Pages">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 60px 40px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 60px 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .section p, .section li {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .download-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .download-section h2 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .code-block code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .stat-number {
+                font-size: 2em;
+            }
+            
+            .section h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 ASMAK Command Center</h1>
+            <p>WordPress Plugin Update Server</p>
+            <div class="version-badge">Version 1.2.0</div>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">11</div>
+                <div class="stat-label">Modules</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">42+</div>
+                <div class="stat-label">API Endpoints</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6+</div>
+                <div class="stat-label">Integrations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Active Installations</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>📖 Tentang Plugin</h2>
+                <p>
+                    ASMAK Command Center adalah plugin WordPress yang powerful untuk integrasi dengan berbagai layanan API eksternal. 
+                    Plugin ini menyediakan solusi lengkap untuk mengelola dan mengintegrasikan berbagai layanan dalam satu dashboard terpusat.
+                </p>
+            </div>
+            
+            <div class="section">
+                <h2>✨ Fitur Utama</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>🔌 11 Modul Terintegrasi</h3>
+                        <p>Berbagai modul siap pakai untuk kebutuhan integrasi yang berbeda</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🌐 42+ API Endpoints</h3>
+                        <p>Koneksi ke berbagai layanan eksternal dengan mudah</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔗 6+ Integrasi Layanan</h3>
+                        <p>Integrasi dengan platform populer seperti payment gateway, shipping, dan lainnya</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔒 Keamanan Tingkat Tinggi</h3>
+                        <p>Enkripsi data dan validasi ketat untuk melindungi informasi Anda</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚡ Performa Optimal</h3>
+                        <p>Dioptimalkan untuk kecepatan dan efisiensi</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Auto-Update</h3>
+                        <p>Sistem update otomatis menggunakan GitHub Pages</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🛠️ Instalasi</h2>
+                <ol>
+                    <li>Download plugin dari link di bawah</li>
+                    <li>Upload folder plugin ke direktori <code>/wp-content/plugins/</code></li>
+                    <li>Aktifkan plugin melalui menu 'Plugins' di WordPress</li>
+                    <li>Konfigurasi API keys di menu Settings > ASMAK Command Center</li>
+                </ol>
+            </div>
+            
+            <div class="section">
+                <h2>💻 Setup Auto-Update di Plugin WordPress</h2>
+                <p>Tambahkan kode berikut ke file plugin utama Anda:</p>
+                <div class="code-block">
+                    <code>
+// File: asmak-command-center.php<br>
+<br>
+// Setup auto-update checker<br>
+require_once plugin_dir_path(__FILE__) . 'includes/updater.php';<br>
+<br>
+if (is_admin()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$updater = new ASMAK_Plugin_Updater(__FILE__);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$updater->set_update_url('https://adsguru22.github.io/asmak-updates/info.json');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$updater->initialize();<br>
+}
+                    </code>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📋 Requirements</h2>
+                <ul>
+                    <li>WordPress 5.0 atau lebih tinggi</li>
+                    <li>PHP 7.4 atau lebih tinggi</li>
+                    <li>MySQL 5.6 atau lebih tinggi</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>📝 Changelog</h2>
+                <h4>Version 1.2.0 (Latest)</h4>
+                <ul>
+                    <li>✅ Added: 3 new API modules</li>
+                    <li>🔒 Enhanced: Security improvements</li>
+                    <li>🐛 Fixed: Minor bug fixes</li>
+                    <li>✨ Updated: Compatibility with WordPress 6.4</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="download-section">
+            <h2>📥 Download Plugin</h2>
+            <p>Dapatkan versi terbaru ASMAK Command Center sekarang!</p>
+            <a href="https://github.com/adsguru22/asmak-updates/releases/download/v1.2.0/asmak-command-center.zip" class="btn">Download v1.2.0</a>
+            <a href="https://github.com/adsguru22/asmak-updates" class="btn">View on GitHub</a>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 ASMAK Team. All rights reserved.</p>
+            <p>
+                <a href="https://github.com/adsguru22/asmak-updates">GitHub</a> | 
+                <a href="https://adsguru22.github.io/asmak-updates/info.json">Update Info (JSON)</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.7;">
+                Powered by GitHub Pages - Free Auto-Update System
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

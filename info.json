@@ -1,0 +1,32 @@
+{
+  "name": "ASMAK Command Center",
+  "slug": "asmak-command-center",
+  "version": "1.2.0",
+  "author": "ASMAK Team",
+  "author_profile": "https://github.com/adsguru22",
+  "requires": "5.0",
+  "tested": "6.4",
+  "requires_php": "7.4",
+  "download_url": "https://github.com/adsguru22/asmak-updates/releases/download/v1.2.0/asmak-command-center.zip",
+  "last_updated": "2025-12-16 19:20:00",
+  "sections": {
+    "description": "ASMAK Command Center adalah plugin WordPress yang powerful untuk integrasi dengan berbagai layanan API eksternal. Plugin ini menyediakan 11 modul utama dengan 42+ API endpoints dan 6+ integrasi layanan.",
+    "installation": "1. Upload folder plugin ke direktori /wp-content/plugins/\n2. Aktifkan plugin melalui menu 'Plugins' di WordPress\n3. Konfigurasi API keys di menu Settings > ASMAK Command Center",
+    "changelog": "<h4>1.2.0</h4><ul><li>Added: 3 new API modules</li><li>Enhanced: Security improvements</li><li>Fixed: Minor bug fixes</li><li>Updated: Compatibility with WordPress 6.4</li></ul><h4>1.1.0</h4><ul><li>Added: 2 new integrations</li><li>Improved: Performance optimization</li></ul><h4>1.0.0</h4><ul><li>Initial release</li></ul>",
+    "faq": "<h4>Bagaimana cara mengaktifkan plugin?</h4><p>Upload dan aktifkan plugin melalui dashboard WordPress Anda.</p><h4>Apakah plugin ini gratis?</h4><p>Ya, plugin ini sepenuhnya gratis dan open source.</p>"
+  },
+  "banners": {
+    "low": "https://raw.githubusercontent.com/adsguru22/asmak-updates/main/assets/banner-772x250.png",
+    "high": "https://raw.githubusercontent.com/adsguru22/asmak-updates/main/assets/banner-1544x500.png"
+  },
+  "icons": {
+    "1x": "https://raw.githubusercontent.com/adsguru22/asmak-updates/main/assets/icon-128x128.png",
+    "2x": "https://raw.githubusercontent.com/adsguru22/asmak-updates/main/assets/icon-256x256.png"
+  },
+  "stats": {
+    "modules": 11,
+    "apis": 42,
+    "integrations": 6,
+    "active_installations": 100
+  }
+}
