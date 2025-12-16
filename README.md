@@ -1,10 +1,10 @@
-# 🚀 ASMAK Updates
+# 🚀 Adsguru Updates
 
-Update server for ASMAK Command Center plugin. Free auto-update system using GitHub Pages.
+Update server for ADSGURU Command Center plugin. Free auto-update system using GitHub Pages.
 
 ## 📋 Overview
 
-This repository hosts the auto-update server for the ASMAK Command Center WordPress plugin using GitHub Pages. It provides a completely free solution for plugin updates without requiring a dedicated server.
+This repository hosts the auto-update server for the adsguru Command Center WordPress plugin using GitHub Pages. It provides a completely free solution for plugin updates without requiring a dedicated server.
 
 ## ✨ Features
 
@@ -24,8 +24,8 @@ This repository hosts the auto-update server for the ASMAK Command Center WordPr
 
 ## 🔗 Links
 
-- **Landing Page**: [https://adsguru22.github.io/asmak-updates/](https://adsguru22.github.io/asmak-updates/)
-- **Update Info**: [https://adsguru22.github.io/asmak-updates/info.json](https://adsguru22.github.io/asmak-updates/info.json)
+- **Landing Page**: [https://adsguru22.github.io/adsguru-updates/](https://adsguru22.github.io/adsguru-updates/)
+- **Update Info**: [https://adsguru22.github.io/adsguru-updates/info.json](https://adsguru22.github.io/adsguru-updates/info.json)
 - **Latest Version**: 1.2.0
 
 ## 📚 Documentation
@@ -50,8 +50,8 @@ See [SETUP_GUIDE.md](SETUP_GUIDE.md) for complete setup instructions including:
    require_once plugin_dir_path(__FILE__) . 'includes/updater.php';
    
    if (is_admin()) {
-       $updater = new ASMAK_Plugin_Updater(__FILE__);
-       $updater->set_update_url('https://adsguru22.github.io/asmak-updates/info.json');
+       $updater = new adsguru_Plugin_Updater(__FILE__);
+       $updater->set_update_url('https://adsguru22.github.io/adsguru-updates/info.json');
        $updater->initialize();
    }
    ```
@@ -68,7 +68,7 @@ See [SETUP_GUIDE.md](SETUP_GUIDE.md) for complete setup instructions including:
 ## 📦 File Structure
 
 ```
-asmak-updates/
+adsguru-updates/
 ├── .github/
 │   └── workflows/
 │       └── update-info.yml      # Auto-update workflow
@@ -119,4 +119,4 @@ Need help? Create an issue in this repository.
 
 ---
 
-**Made with ❤️ by ASMAK Team**
+**Made with ❤️ by Adsguru Team**
